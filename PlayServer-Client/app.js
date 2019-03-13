@@ -1,12 +1,9 @@
 const axios = require('axios');
-const axiosSaveFile = require('axios-savefile');
-const fs = require('fs');
 
 main();
 
 function main() {
-	let checksum = getimgpic();
-	console.log(checksum);
+	getimgpic();
 }
 
 async function getimgpic() {
