@@ -1,4 +1,5 @@
 const axios = require('axios');
+const axiosFile = require('axios-file');
 
 main();
 
@@ -7,19 +8,25 @@ function main() {
 }
 
 async function getimgpic() {
-	axios.post('http://playserver.co/index.php/Vote/ajax_getpic/PserverN-15282')
-	.then((response) => {
-		if (response.status == 200 ) {
-			console.log("GetImg:" +response.data.checksum+".png\n");
-			var checksum = response.data.checksum;
-			// TODO Save img to /img/
-			return checksum;
-		} else {
-			console.log("Cannot get img from playserver\n");
-		}
-	})
-	.catch((error) => {
-	 	console.log(error);
-	})
-
+  	let res = await axios.post('http://playserver.co/index.php/Vote/ajax_getpic/PserverN-15282');
+  	if (res.status == 200 ) {
+  		var checksum = res.data.checksum;
+  		console.log("GetImg:" +checksum+".png");
+  		saveimg(checksum);
+  		return checksum;
+ 	} else {
+ 		console.log("Cannot get img from PlayServer");
+ 	}
 }
+
+
+async function saveimg(checksum) {
+  	let savefile = await axiosFile({
+  		url: 'http://playserver.co/index.php/VoteGetImage/'+checksum,
+  		method: 'get',
+  		savePath: `img/${checksum}.png`
+  	});
+  	console.log("SaveImg " + checksum + " has been downloaded!");
+}
+
+
