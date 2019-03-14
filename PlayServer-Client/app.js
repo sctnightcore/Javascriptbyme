@@ -1,5 +1,6 @@
 const axios = require('axios');
 const axiosFile = require('axios-file');
+require('dotenv').config();
 
 main();
 
@@ -17,11 +18,11 @@ async function banner() {
 	console.log("PlayServer-Javascript");
 	console.log("=========================");
 }
-
+PserverN-15282
 /*get Img */
 async function getimgpic() {
 	try {
-		return axios.post('http://playserver.co/index.php/Vote/ajax_getpic/PserverN-15282');
+		return axios.post(`http://playserver.co/index.php/Vote/ajax_getpic/${process.env.URL}`);
 	} catch (err) {
 		console.log(err);
 	}
