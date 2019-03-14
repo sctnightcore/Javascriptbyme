@@ -5,24 +5,27 @@ main();
 
 async function main() {
 	await banner();
-	await getimgpic();
+	var checksum = await getimgpic(); // TODO retrun resp.data.checksum !
 }
 
 
-function banner() {
+async function banner() {
 	console.log("=========================");
 	console.log("PlayServer-Javascript");
 	console.log("=========================");
 }
 
-function getimgpic() {
-	axios.post('http://playserver.co/index.php/Vote/ajax_getpic/PserverN-15282')
-	.then(resp => {
-	  	var checksum = resp.data.checksum;
-	  	console.log("GetImg:" +checksum+".png");
-	  	axiosFile({url: `http://playserver.co/index.php/VoteGetImage/${checksum}`,method: 'get',savePath: `img/${checksum}.png`});
-	  	console.log("SaveImg " + checksum + " has been downloaded!");
-	  	return checksum;
-  	});
+async function getimgpic() {
+	try {
+		await axios.post('http://playserver.co/index.php/Vote/ajax_getpic/PserverN-15282')
+		.then(resp => {
+		  	console.log("GetImg:" +resp.data.checksum+".png");
+		  	axiosFile({url: `http://playserver.co/index.php/VoteGetImage/${resp.data.checksum}`,method: 'get',savePath: `img/${resp.data.checksum}.png`});
+		  	console.log("SaveImg " +resp.data.checksum+ " has been downloaded!");
+		  	return resp.data.checksum;
+	  	});
+  	} catch(error) {
+  		console.error(error.message);
+  	}	
 }
 
