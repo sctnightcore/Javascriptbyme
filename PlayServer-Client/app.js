@@ -7,9 +7,7 @@ main();
 async function main() {
 	await banner();
 	const checksum = await getimgpic();
-	console.error(`GetImg:${checksum.data.checksum}.png`);
-	await saveimg(checksum);
-	console.error(`SaveImg:${checksum.data.checksum}.png`);
+	await saveanswer(checksum);
 }
 
 
@@ -18,20 +16,34 @@ async function banner() {
 	console.log("PlayServer-Javascript");
 	console.log("=========================");
 }
-PserverN-15282
-/*get Img */
+/*get Img/ Save Img */
 async function getimgpic() {
 	try {
-		return axios.post(`http://playserver.co/index.php/Vote/ajax_getpic/${process.env.URL}`);
+		let res =  await axios.post(`http://playserver.co/index.php/Vote/ajax_getpic/${process.env.URL}`);
+		axiosFile({url: `http://playserver.co/index.php/VoteGetImage/${res.data.checksum}`,method: 'get',savePath: `img/${res.data.checksum}.png`});
+		console.error(`[GetImg/SaveImg]:${res.data.checksum}.png`);
+		return res;
 	} catch (err) {
 		console.log(err);
 	}
 }
-/*Save Img */
-async function saveimg(checksum) {
+
+
+async function saveanswer(checksum) {
 	try {
-		axiosFile({url: `http://playserver.co/index.php/VoteGetImage/${checksum.data.checksum}`,method: 'get',savePath: `img/${checksum.data.checksum}.png`});
+		let json = await axios.post(`http://playserver.co/index.php/Vote/ajax_submitpic/${process.env.URL}`, {
+			headers: {'Referer':'http://playserver.in.th/index.php/Vote/prokud/$server'},
+			data: `server_id=${process.env.SERVERID}&captcha=$ans&gameid=${process.env.GAMEID}&checksum=${checksum.data.checksum}`
+		});
+
+		if (json.data.success == true) {
+			console.error(`[Success]:${res.data.checksum}.png is ${answer}`);
+		} else {
+			console.error(`[Fail]:${res.data.checksum}.png is ${answer}`);
+		}
+
 	} catch (err) {
 		console.log(err);
 	}
 }
+
