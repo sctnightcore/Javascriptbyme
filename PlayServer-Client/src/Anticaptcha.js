@@ -1,17 +1,12 @@
-const anticaptcha = require('anticaptcha-async');
-const fs = require('fs');
-
+const anticaptcha = require('anticaptcha-nodejs')(process.env.AntiCaptchakey);
+require('dotenv').config();
 
 async function getanswer(checksum) {
-	const client = anticaptcha(process.env.AntiCaptchakey);
-	const result = await client.getImage(fs.createReadStream(`${checksum.data.checksum}.png`), {
-		restriction: {
-			 minLength: 5,
-			 maxLength: 5,
-		},
-	});
-	var ans = result.getValue();
-	return ans;
-}
+	try {
+
+	} catch (err) {
+		console.log(err);
+	}
+}		
 
 module.exports.getanswer = getanswer;
