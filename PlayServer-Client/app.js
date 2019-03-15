@@ -7,8 +7,11 @@ main();
 
 async function main() {
 	await banner();
-	const checksum = await getimgpic();
-	await saveanswer(checksum,ans);
+	while (0 < 9999999) {
+		const checksum = await getimgpic();
+		/*TODO get ans from anticaptcha*/
+		await saveanswer(checksum,ans);
+	}
 }
 
 
