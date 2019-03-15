@@ -1,7 +1,7 @@
 const axios = require('axios');
 const axiosFile = require('axios-file');
-require('dotenv').config();
 const colors = require('colors/safe');
+require('dotenv').config();
 
 
 
