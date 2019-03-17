@@ -17,12 +17,13 @@ async function main() {
 			//Need to be test !
 			const ans = await Anticaptcha.getanswer(checksum);
 			// send answer to playserver 
-			await Playserver.sendanswer(checksum,ans);
+			const time = await Playserver.sendanswer(checksum,ans);
 			// del file 
 			await File.delimg(checksum);
-			//sleep 61 sec 
-			console.log(`Sleep 61 sec!`);
-			await sleep(61000);
+			//sleep 61 sec
+			const delay = time.data.wait;
+			console.log(`Sleep ${delay} sec!`);
+			await sleep(delay);
 		} catch (err) {
 			console.log(err);
 		}

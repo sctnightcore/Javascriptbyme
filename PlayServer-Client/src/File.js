@@ -1,7 +1,4 @@
 const fs = require('fs')
-
-
-
 async function delimg(checksum) {
 	try {
 		await fs.unlinkSync(`./img/${checksum.data.checksum}.png`);

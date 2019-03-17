@@ -4,7 +4,6 @@ const colors = require('colors/safe');
 require('dotenv').config();
 
 
-
 /*get Img/ Save Img */
 async function getimgpic() {
 	try {
@@ -17,7 +16,7 @@ async function getimgpic() {
 async function saveimg(checksum) {
 	try {
 		await axiosFile({url: `http://playserver.co/index.php/VoteGetImage/${checksum.data.checksum}`,method: 'get',savePath: `img/${checksum.data.checksum}.png`});
-		console.error(`[GetImg/SaveImg]:${checksum.data.checksum}.png`);
+		console.error(colors.grey(`[GetImg/SaveImg]:${checksum.data.checksum}.png`));
 	} catch (err) {
 		console.log(err);
 	}	
