@@ -8,15 +8,20 @@ require('dotenv').config();
 /*get Img/ Save Img */
 async function getimgpic() {
 	try {
-		let res =  await axios.post(`http://playserver.co/index.php/Vote/ajax_getpic/${process.env.URL}`);
-		await axiosFile({url: `http://playserver.co/index.php/VoteGetImage/${res.data.checksum}`,method: 'get',savePath: `img/${res.data.checksum}.png`});
-		console.error(`[GetImg/SaveImg]:${res.data.checksum}.png`);
-		return res;
+		return await axios.post(`http://playserver.co/index.php/Vote/ajax_getpic/${process.env.URL}`);
 	} catch (err) {
 		console.log(err);
 	}
 }
 
+async function saveimg(checksum) {
+	try {
+		await axiosFile({url: `http://playserver.co/index.php/VoteGetImage/${checksum.data.checksum}`,method: 'get',savePath: `img/${checksum.data.checksum}.png`});
+		console.error(`[GetImg/SaveImg]:${checksum.data.checksum}.png`);
+	} catch (err) {
+		console.log(err);
+	}	
+}
 
 async function sendanswer(checksum,ans) {
 	try {
@@ -29,7 +34,7 @@ async function sendanswer(checksum,ans) {
 		if (json.data.success == true) {
 			console.error(colors.green(`[Success]:${checksum.data.checksum}.png is ${ans}`));
 		} else {
-			console.error(colors.red(`[Fail]:${checksum.data.checksum}.png is ${ans}`));
+			console.error(colors.red(`[Fail]:${checksum.data.checksum}.png isn't ${ans}`));
 		}
 		return json;
 	} catch (err) {
@@ -38,4 +43,5 @@ async function sendanswer(checksum,ans) {
 }
 
 module.exports.getimgpic = getimgpic;
+module.exports.saveimg = saveimg;
 module.exports.sendanswer = sendanswer;

@@ -1,4 +1,3 @@
-const anticaptcha = require('anticaptcha-nodejs')(process.env.AntiCaptchakey);
 require('dotenv').config();
 
 async function getanswer(checksum) {
