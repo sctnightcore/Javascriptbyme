@@ -23,7 +23,6 @@ async function main() {
 			//sleep 61 sec 
 			console.log(`Sleep 61 sec!`);
 			await sleep(61000);
-
 		} catch (err) {
 			console.log(err);
 		}
