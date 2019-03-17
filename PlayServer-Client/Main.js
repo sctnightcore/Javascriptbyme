@@ -15,7 +15,7 @@ async function main() {
 			// save img
 			await Playserver.saveimg(checksum);
 			//TODO get ans from Anti-captcha
-			//
+
 			// send answer to playserver 
 			await Playserver.sendanswer(checksum,ans);
 			// del file 
