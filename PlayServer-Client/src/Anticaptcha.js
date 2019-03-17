@@ -5,7 +5,7 @@ require('dotenv').config();
 async function getanswer(checksum) {
 	try {
 		const client = anticaptcha(process.env.AntiCaptchakey);
-	    const result = await client.getImage(fs.createReadStream(`${checksum.data.checksum}.png`), {
+	    const result = await client.getImage(fs.createReadStream(`./img/${checksum.data.checksum}.png`), {
 	        restriction: {
 	            minLength: 5,
 	            maxLength: 5,
