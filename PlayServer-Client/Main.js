@@ -14,8 +14,8 @@ async function main() {
 			const checksum = await Playserver.getimgpic();
 			// save img
 			await Playserver.saveimg(checksum);
-			//TODO get ans from Anti-captcha
-
+			//Need to be test !
+			const ans = await Anticaptcha.getanswer(checksum);
 			// send answer to playserver 
 			await Playserver.sendanswer(checksum,ans);
 			// del file 

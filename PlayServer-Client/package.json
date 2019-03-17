@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sctnightcore/Javascriptbyme#readme",
   "dependencies": {
+    "anticaptcha-async": "^0.1.4",
     "axios": "^0.18.0",
     "axios-file": "^1.0.14",
     "colors": "^1.3.3",
